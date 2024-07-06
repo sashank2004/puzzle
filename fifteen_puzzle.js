@@ -112,8 +112,6 @@ if(p.gamePad){window.addEventListener('gamepadconnected',function(e){
         };update();
     });
 }
-
-// quiz.js
 const questions = [
     {
         question: "What is the term for a puzzle where you must fit pieces together to form a complete picture?",
