@@ -114,8 +114,6 @@ if(p.gamePad){window.addEventListener('gamepadconnected',function(e){
 }
 
 // quiz.js
-
-// List of questions for the quiz
 const questions = [
     {
         question: "What is the term for a puzzle where you must fit pieces together to form a complete picture?",
@@ -144,44 +142,68 @@ const questions = [
     }
 ];
 
-// Function to display the quiz
 function displayQuiz() {
+    let currentQuestionIndex = 0;
     let score = 0;
+
+    // Create and append quiz container
     const quizContainer = document.createElement('div');
     quizContainer.className = 'quiz-container';
     document.body.appendChild(quizContainer);
 
-    questions.forEach((q, index) => {
-        const questionDiv = document.createElement('div');
-        questionDiv.className = 'question';
-
-        questionDiv.innerHTML = `
-            <p>${index + 1}. ${q.question}</p>
-            ${q.options.map((option) => `
-                <label>
-                    <input type="radio" name="question${index}" value="${option}" />
-                    ${option}
-                </label>
-            `).join('<br/>')}
+    function renderQuestion(index) {
+        const q = questions[index];
+        quizContainer.innerHTML = `
+            <div class="question-content">
+                <p>${index + 1}. ${q.question}</p>
+                ${q.options.map((option) => `
+                    <label>
+                        <input type="radio" name="question${index}" value="${option}" />
+                        ${option}
+                    </label>
+                `).join('<br/>')}
+            </div>
+            <div class="quiz-buttons">
+                <button id="next-btn">${index === questions.length - 1 ? 'Submit' : 'Next'}</button>
+            </div>
         `;
-        quizContainer.appendChild(questionDiv);
-    });
 
-    const submitButton = document.createElement('button');
-    submitButton.textContent = 'Submit';
-    submitButton.addEventListener('click', () => {
-        questions.forEach((q, index) => {
+        // Add event listeners for the Next button
+        document.getElementById('next-btn').addEventListener('click', () => {
+            // Check the selected answer and update the score
             const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
             if (selectedOption && selectedOption.value === q.answer) {
                 score++;
             }
+
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion(currentQuestionIndex);
+            } else {
+                submitQuiz();
+            }
         });
+    }
+
+    function submitQuiz() {
+        // Debugging: Log the answers and selected options
+        questions.forEach((q, index) => {
+            const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+            console.log(`Question ${index + 1}: ${q.question}`);
+            console.log(`Correct Answer: ${q.answer}`);
+            if (selectedOption) {
+                console.log(`Selected Answer: ${selectedOption.value}`);
+            } else {
+                console.log('No answer selected');
+            }
+        });
+
+        console.log(`Total Score: ${score} out of ${questions.length}`);
 
         // Alert with the final score
         alert(`You scored ${score} out of ${questions.length}`);
 
         // Points awarding logic (optional)
-        // For example: award 10 points per correct answer
         const points = score * 10;
         console.log(`You earned ${points} points`);
 
@@ -189,7 +211,9 @@ function displayQuiz() {
 
         // Remove the quiz container after the quiz is complete
         quizContainer.remove();
-    });
-    quizContainer.appendChild(submitButton);
-}
+    }
 
+    // Render the first question
+    renderQuestion(currentQuestionIndex);
+}
+    
