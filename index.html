@@ -79,6 +79,8 @@ body {
 /* style.css */
 
 /* Basic styling for the quiz container */
+
+/* Styling for the submit button */
 .quiz-container {
     position: fixed;
     top: 50%;
@@ -89,6 +91,9 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 1000;
+    width: 300px; /* Adjust width as needed */
+    max-height: 80%; /* Ensure it doesn't overflow */
+    overflow-y: auto; /* Add scroll if content overflows */
 }
 
 /* Styling for individual questions */
@@ -109,10 +114,14 @@ body {
     margin-right: 10px;
 }
 
-/* Styling for the submit button */
-.quiz-container button {
-    display: block;
-    margin: 0 auto;
+/* Styling for the buttons */
+.quiz-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.quiz-buttons button {
     padding: 10px 15px;
     background-color: #007BFF;
     color: #fff;
@@ -121,9 +130,16 @@ body {
     cursor: pointer;
 }
 
-.quiz-container button:hover {
+.quiz-buttons button:hover {
     background-color: #0056b3;
 }
+
+.quiz-buttons button:disabled {
+    background-color: #b0b0b0;
+    cursor: not-allowed;
+}
+
+
 
 
 
