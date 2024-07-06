@@ -146,7 +146,6 @@ function displayQuiz() {
     let currentQuestionIndex = 0;
     let score = 0;
 
-    // Create and append quiz container
     const quizContainer = document.createElement('div');
     quizContainer.className = 'quiz-container';
     document.body.appendChild(quizContainer);
@@ -168,9 +167,7 @@ function displayQuiz() {
             </div>
         `;
 
-        // Add event listeners for the Next button
         document.getElementById('next-btn').addEventListener('click', () => {
-            // Check the selected answer and update the score
             const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
             if (selectedOption && selectedOption.value === q.answer) {
                 score++;
@@ -180,40 +177,35 @@ function displayQuiz() {
                 currentQuestionIndex++;
                 renderQuestion(currentQuestionIndex);
             } else {
-                submitQuiz();
+                quizContainer.remove();
+                showResults(score);
             }
         });
     }
-
-    function submitQuiz() {
-        // Debugging: Log the answers and selected options
-        questions.forEach((q, index) => {
-            const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
-            console.log(`Question ${index + 1}: ${q.question}`);
-            console.log(`Correct Answer: ${q.answer}`);
-            if (selectedOption) {
-                console.log(`Selected Answer: ${selectedOption.value}`);
-            } else {
-                console.log('No answer selected');
-            }
-        });
-
-        console.log(`Total Score: ${score} out of ${questions.length}`);
-
-        // Alert with the final score
-        alert(`You scored ${score} out of ${questions.length}`);
-
-        // Points awarding logic (optional)
-        const points = score * 10;
-        console.log(`You earned ${points} points`);
-
-        // You can also add logic here to update the user's score in the app, if necessary
-
-        // Remove the quiz container after the quiz is complete
-        quizContainer.remove();
-    }
-
-    // Render the first question
     renderQuestion(currentQuestionIndex);
 }
-    
+
+function showResults(score) {
+    const points = score * 10;
+
+    const resultContainer = document.createElement('div');
+    resultContainer.className = 'result-container';
+    document.body.appendChild(resultContainer);
+
+    resultContainer.innerHTML = `
+        <div class="result-content">
+            <h2>Quiz Results</h2>
+            <p>You scored ${score} out of ${questions.length}</p>
+            <p>You earned ${points} points</p>
+        </div>
+    `;
+
+
+    resultContainer.style.display = 'flex';
+
+    resultContainer.addEventListener('click', (event) => {
+        if (event.target === resultContainer) {
+            resultContainer.remove();
+        }
+    });
+}
