@@ -80,7 +80,7 @@ function check_slots(){
         for(var x=0;x<=p.grid[0];x++){
             if(m[y][x]==0||check==m[y][x]){check++}else{break;}
         }
-    }if(check==o){setTimeout(()=>{ displayQuiz(); },((p.time)?p.time*1000:0));} // <-- alert('win') script that runs at the end of the game
+    }if(check==o){setTimeout(()=>{ displayMessageAndStartQuiz(); },((p.time)?p.time*1000:0));} // <-- alert('win') script that runs at the end of the game
 }
 function fifteen_resize(){
     var rect=f.parentNode.getBoundingClientRect();
@@ -136,14 +136,43 @@ const questions = [
     {
         question: "In a standard jigsaw puzzle, what is the term for a piece that connects to four other pieces?",
         options: ["Corner Piece", "Edge Piece", "Middle Piece", "Special Piece"],
-        answer: "Corner Piece"
+        answer: "Middle Piece"
     }
 ];
+
+function displayMessageAndStartQuiz() {
+    // Create the message container
+    const messageContainer = document.createElement('div');
+    messageContainer.className = 'message-container';
+    document.body.appendChild(messageContainer);
+
+    // Create and style the win message
+    const winMessage = document.createElement('div');
+    winMessage.id = 'win-message';
+    winMessage.className = 'win-message';
+    winMessage.textContent = 'You won!';
+    messageContainer.appendChild(winMessage);
+
+    // Create and style the start quiz button
+    const startButton = document.createElement('button');
+    startButton.id = 'start-quiz-btn';
+    startButton.textContent = 'Start Quiz';
+    messageContainer.appendChild(startButton);
+
+    // Add click event listener to the start button
+    startButton.addEventListener('click', () => {
+        // Remove the message container
+        messageContainer.remove();
+        // Start the quiz
+        displayQuiz();
+    });
+}
 
 function displayQuiz() {
     let currentQuestionIndex = 0;
     let score = 0;
 
+    // Create the quiz container
     const quizContainer = document.createElement('div');
     quizContainer.className = 'quiz-container';
     document.body.appendChild(quizContainer);
@@ -186,6 +215,7 @@ function displayQuiz() {
 function showResults(score) {
     const points = score * 10;
 
+    // Create the result container
     const resultContainer = document.createElement('div');
     resultContainer.className = 'result-container';
     document.body.appendChild(resultContainer);
@@ -198,9 +228,9 @@ function showResults(score) {
         </div>
     `;
 
-
     resultContainer.style.display = 'flex';
 
+    // Hide the result container when clicking outside of it
     resultContainer.addEventListener('click', (event) => {
         if (event.target === resultContainer) {
             resultContainer.remove();
