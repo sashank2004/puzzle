@@ -174,6 +174,31 @@ body {
 .result-content button:hover {
     background-color: #218838;
 }
+/* Menu icon styling */
+.menu-icon {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001; /* Make sure it is above other elements */
+}
+
+#left-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0px 2px 24px rgba(110, 95, 165, 0.25);
+    border-radius: 0 0 16px 0;
+    background-color: #fff;
+    width: 196px;
+    display: none; /* Hidden by default */
+}
+#left-menu.visible {
+    display: block; /* Show when the menu is toggled */
+}
+
+
 
 
 
@@ -182,8 +207,9 @@ input:checked+.slider:before{transform:translateX(26px);}
 </style>
 </head>
 <body>
+ <div id="menu-icon" class="menu-icon" onclick="toggleMenu()">&#9776;</div>
 <div id='fifteen'></div> <!--element "fifteen" in which the game will take place-->
-<div style='position:fixed;top:0;left:0;box-shadow:0px 2px 24px rgba(110,95,165,0.25);border-radius:0 0 16px 0;background-color:#fff;width:196px;'>
+<div id="left-menu" class="left-menu" style='position:fixed;top:0;left:0;box-shadow:0px 2px 24px rgba(110,95,165,0.25);border-radius:0 0 16px 0;background-color:#fff;width:196px;'>
     <div style="display:none;position:fixed;"><img id="art" src=""/><a id="dwonload"></a><input id="img_file" type="file" accept="image/png,image/gif,image/jpeg,image/webp"/></div>
     <div style="overflow:auto;width:180px;max-height:100vh;height:100%;padding:8px;">
         <table style="border-collapse:collapse;" border="1">
@@ -279,6 +305,14 @@ function getRandomImage() {
     // Select a random image from the list
     var randomIndex = Math.floor(Math.random() * images.length);
     return folder + images[randomIndex];
+}
+function toggleMenu() {
+    var menu = document.getElementById('left-menu');
+    if (menu.classList.contains('visible')) {
+        menu.classList.remove('visible');
+    } else {
+        menu.classList.add('visible');
+    }
 }
 slot_style.value=setup.puzzle_fifteen.style;
 var img_file=document.getElementById('img_file'),img=document.getElementById("art"),file;
