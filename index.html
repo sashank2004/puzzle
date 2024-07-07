@@ -261,7 +261,7 @@ var setup={
         fill:true, // Stretching the area with the game to fit the element is recommended for fullscreen
         number:false, // Slot sequence number
         art:{
-            url:"art.jpg", // path to the picture (you can use any format of supported browsers, gif-animation of svg)
+            url:getRandomImage(), // path to the picture (you can use any format of supported browsers, gif-animation of svg)
             ratio:false // enlarge the picture in height or width
         },
         // optional elements
@@ -270,6 +270,15 @@ var setup={
         time:0.1, // block move animation time
         style:"background-color:#c4cebb;display:grid;justify-items:center;align-items:center;font-family:Arial;color:#fff;border-radius:12px;font-size:32px;" // style for puzzle square
      }
+}
+function getRandomImage() {
+    // Define the folder containing the images and the list of images
+    var folder = "images/"; // path to your image folder
+    var images = ["art.jpg", "cat.jpg", "tiger.jpg", "squirrel.jpg","shoe.jpg"]; // list of image filenames
+
+    // Select a random image from the list
+    var randomIndex = Math.floor(Math.random() * images.length);
+    return folder + images[randomIndex];
 }
 slot_style.value=setup.puzzle_fifteen.style;
 var img_file=document.getElementById('img_file'),img=document.getElementById("art"),file;
