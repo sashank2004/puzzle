@@ -89,6 +89,40 @@ body {
     max-height: 80%; /* Ensure it doesn't overflow */
     overflow-y: auto; /* Add scroll if content overflows */
 }
+.message-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 300px; /* Adjust width as needed */
+    max-height: 80%; /* Ensure it doesn't overflow */
+    overflow-y: auto; /* Add scroll if content overflows */
+}
+
+.win-message {
+    font-size: 20px;
+    font-weight: bold;
+    color: green;
+    margin-bottom: 15px;
+}
+
+#start-quiz-btn {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#start-quiz-btn:hover {
+    background-color: #0056b3;
+}
 
 /* Styling for individual questions */
 .question-content {
@@ -186,8 +220,6 @@ body {
 
 #left-menu {
     position: fixed;
-    top: 0;
-    left: 0;
     box-shadow: 0px 2px 24px rgba(110, 95, 165, 0.25);
     border-radius: 0 0 16px 0;
     background-color: #fff;
@@ -195,8 +227,14 @@ body {
     display: none; /* Hidden by default */
 }
 #left-menu.visible {
+    top:20px;
     display: block; /* Show when the menu is toggled */
 }
+
+
+
+
+
 
 
 
@@ -209,7 +247,7 @@ input:checked+.slider:before{transform:translateX(26px);}
 <body>
  <div id="menu-icon" class="menu-icon" onclick="toggleMenu()">&#9776;</div>
 <div id='fifteen'></div> <!--element "fifteen" in which the game will take place-->
-<div id="left-menu" class="left-menu" style='position:fixed;top:0;left:0;box-shadow:0px 2px 24px rgba(110,95,165,0.25);border-radius:0 0 16px 0;background-color:#fff;width:196px;'>
+<div id="left-menu" class="left-menu" style='position:fixed;top:40px;left:0;box-shadow:0px 2px 24px rgba(110,95,165,0.25);border-radius:16px;background-color:#fff;width:196px;'>
     <div style="display:none;position:fixed;"><img id="art" src=""/><a id="dwonload"></a><input id="img_file" type="file" accept="image/png,image/gif,image/jpeg,image/webp"/></div>
     <div style="overflow:auto;width:180px;max-height:100vh;height:100%;padding:8px;">
         <table style="border-collapse:collapse;" border="1">
